@@ -6,13 +6,16 @@ use Illuminate\Database\Eloquent\Model;
 
 class Client extends Model
 {
+
+    public $timestamps = false;
+
     /**
      * The attributes that are mass assignable.
      *
      * @var array
      */
     protected $fillable = [
-        'email', 'telephone', 'payload'
+        'email', 'telephone', 'client_data'
     ];
 
     /**
@@ -21,8 +24,8 @@ class Client extends Model
      * @var array
      */
     protected $casts = [
-        'payload' => 'array',
+        'client_data' => 'array',
     ];
 
-    
+
 }
