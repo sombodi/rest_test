@@ -2,68 +2,86 @@
 
 namespace App\Http\Controllers;
 
+use App\Client;
+use App\Http\Controllers\Controller;
+// use App\Http\Requests\Request;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Routing\ResponseFactory;
 
 class ClientController extends Controller
-{
+{ 
     /**
-        * Display a listing of the resource.
-        * @return Response
-        */
-        public function index()
-        {
-        }
-        
-        /**
-        * Show the form for creating a new resource.
-        * @return Response
-        */
-        public function create()
-        {
-        }
-        
-        /**
-        * Store a newly created resource in storage.
-        * @return Response
-        */
-        public function store()
-        {
-        }
-    
-        /**
-        * Display the specified resource.
-        * @param  int  $id
-        * @return Response
-        */
-        public function show($id)
-        {
-        }
-    
-        /**
-        * Show the form for editing the specified resource.
-        * @param  int  $id
-        * @return Response
-        */
-        public function edit($id)
-        {
-        }
-    
-        /**
-        * Update the specified resource in storage.
-        *
-        * @param  int  $id
-        * @return Response
-        */
-        public function update($id)
-        {
-        }
-    
-        /**
-        * Remove the specified resource from storage.
-        * @param  int  $id
-        * @return Response
-        */
-        public function destroy($id)
-        {
-        }
+     * @var Client
+     */
+    protected $client;
+    /**
+     * @var ResponseFactory
+     */
+    private $responseFactory;
+    /**
+     * Constructor.
+     *
+     * @param Client $client
+     * @param ResponseFactory $responseFactory
+     */
+    public function __construct(Client $client, ResponseFactory $responseFactory)
+    {
+        $this->client = $client;
+        $this->responseFactory = $responseFactory;
+    }
+    /**
+     * Display a listing of clients.
+     *
+     * @return JsonResponse
+     */
+    public function index()
+    {
+        $clients = $this->client->all();
+        return $this->responseFactory->json($clients);
+    }
+    /**
+     * Store a newly created client.
+     *
+     * @param Request $request
+     * @return JsonResponse
+     */
+    public function store(Request $request)
+    {
+        $client = $this->client->create($request->all());
+        return $this->responseFactory->json($client);
+    }
+    /**
+     * Display the specified client.
+     *
+     * @param  int  $id
+     * @return JsonResponse
+     */
+    public function show($id)
+    {
+        $client = $this->client->findOrFail($id);
+        return $this->responseFactory->json($client);
+    }
+    /**
+     * Update the specified client.
+     *
+     * @param  int  $id
+     * @return JsonResponse
+     */
+    public function update(Request $request, $id)
+    {
+        $client = $this->client->findOrFail($id);
+        $client->update($request->all());
+        return $this->responseFactory->json($client);
+    }
+    /**
+     * Delete the specified client.
+     *
+     * @param  int  $id
+     * @return JsonResponse
+     */
+    public function destroy($id)
+    {
+        $this->client->findOrFail($id)->delete();
+    }
 }
