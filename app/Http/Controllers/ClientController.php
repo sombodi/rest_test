@@ -72,7 +72,7 @@ class ClientController extends Controller
     {
         $this->validate($request, [
             'email' => ["required","regex:/^(\S+)@(\S+)\.(\S+)$/"],
-            'telephone' => 'required',
+            'telephone' => 'required|phone:gb',
         ]);
         $client = $this->client->findOrFail($id);
         $client->update($request->all());
