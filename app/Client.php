@@ -30,6 +30,7 @@ class Client extends Model
 
     public function getTelephoneAttribute($value)
     {
+        return $this->hideNumbers(\Crypt::decrypt($value)); 
     }
 
     public function setTelephoneAttribute($value)
@@ -37,6 +38,7 @@ class Client extends Model
         \Crypt::encrypt($value);
     }
 
-        return str_replace(range(0,9), "*", substr($ccNum, 0, -4)) .  substr($ccNum, -4);
+    protected function hideNumbers($number){
+        return str_replace(range(0,9), "*", substr($number, 0, -4)) .  substr($number, -4);
     }
 }
