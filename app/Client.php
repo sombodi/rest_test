@@ -35,7 +35,7 @@ class Client extends Model
 
     public function setTelephoneAttribute($value)
     {
-        \Crypt::encrypt($value);
+        $this->attributes['telephone'] = \Crypt::encrypt($value);
     }
 
     protected function hideNumbers($number){
