@@ -28,4 +28,14 @@ class Client extends Model
     ];
 
 
+    public function getTelephoneAttribute($value)
+    {
+        return \Crypt::decrypt($value); 
+    }
+
+    public function setTelephoneAttribute($value)
+    {
+        \Crypt::encrypt($value);
+    }
+
 }
