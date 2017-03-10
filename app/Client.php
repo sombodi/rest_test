@@ -30,7 +30,6 @@ class Client extends Model
 
     public function getTelephoneAttribute($value)
     {
-        return \Crypt::decrypt($value); 
     }
 
     public function setTelephoneAttribute($value)
@@ -38,4 +37,6 @@ class Client extends Model
         \Crypt::encrypt($value);
     }
 
+        return str_replace(range(0,9), "*", substr($ccNum, 0, -4)) .  substr($ccNum, -4);
+    }
 }
