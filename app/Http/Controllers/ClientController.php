@@ -48,6 +48,10 @@ class ClientController extends Controller
      */
     public function store(Request $request)
     {
+        $this->validate($request, [
+            'email' => ["required","regex:/^(\S+)@(\S+)\.(\S+)$/"],
+            'telephone' => 'required|phone:gb',
+        ]);
         $client = $this->client->create($request->all());
         return $this->responseFactory->json($client);
     }
