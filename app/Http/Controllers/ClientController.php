@@ -3,8 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Client;
-use App\Http\Controllers\Controller;
-// use App\Http\Requests\Request;
+use App\Http\Controllers\Controller; 
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Routing\ResponseFactory;
@@ -15,6 +14,7 @@ class ClientController extends Controller
      * @var Client
      */
     protected $client;
+
     /**
      * @var ResponseFactory
      */
@@ -70,6 +70,10 @@ class ClientController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $this->validate($request, [
+            'email' => ["required","regex:/^(\S+)@(\S+)\.(\S+)$/"],
+            'telephone' => 'required',
+        ]);
         $client = $this->client->findOrFail($id);
         $client->update($request->all());
         return $this->responseFactory->json($client);
