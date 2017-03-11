@@ -19,6 +19,7 @@ class ClientController extends Controller
      * @var ResponseFactory
      */
     private $responseFactory;
+
     /**
      * Constructor.
      *
@@ -30,6 +31,7 @@ class ClientController extends Controller
         $this->client = $client;
         $this->responseFactory = $responseFactory;
     }
+
     /**
      * Display a listing of clients.
      *
@@ -40,6 +42,7 @@ class ClientController extends Controller
         $clients = $this->client->all();
         return $this->responseFactory->json($clients);
     }
+
     /**
      * Store a newly created client.
      *
@@ -48,13 +51,19 @@ class ClientController extends Controller
      */
     public function store(Request $request)
     {
-        $this->validate($request, [
+        $rules =  [
             'email' => ["required","regex:/^(\S+)@(\S+)\.(\S+)$/"],
             'telephone' => 'required|phone:gb',
-        ]);
-        $client = $this->client->create($request->all());
-        return $this->responseFactory->json($client);
+        ];
+        $validator = \Validator::make($request->all(), $rules);
+        if ($validator->fails()) {
+            return $validator->messages();
+        }else{ 
+            $client = $this->client->create($request->all());
+            return $this->responseFactory->json($client);
+        }
     }
+
     /**
      * Display the specified client.
      *
@@ -66,6 +75,7 @@ class ClientController extends Controller
         $client = $this->client->findOrFail($id);
         return $this->responseFactory->json($client);
     }
+
     /**
      * Update the specified client.
      *
@@ -74,14 +84,20 @@ class ClientController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $this->validate($request, [
+        $rules =  [
             'email' => ["required","regex:/^(\S+)@(\S+)\.(\S+)$/"],
             'telephone' => 'required|phone:gb',
-        ]);
-        $client = $this->client->findOrFail($id);
-        $client->update($request->all());
-        return $this->responseFactory->json($client);
+        ];
+        $validator = \Validator::make($request->all(), $rules);
+        if ($validator->fails()) {
+            return $validator->messages();
+        }else{ 
+            $client = $this->client->findOrFail($id);
+            $client->update($request->all());
+            return $this->responseFactory->json($client);
+        }
     }
+
     /**
      * Delete the specified client.
      *
