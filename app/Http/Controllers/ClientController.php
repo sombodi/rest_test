@@ -8,6 +8,7 @@ use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Routing\ResponseFactory;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Input;
 
 class ClientController extends Controller
 { 
@@ -40,8 +41,35 @@ class ClientController extends Controller
      */
     public function index()
     {
+        
         $clients = $this->client->all();
-        // dd(Route::getCurrentRoute()->getPrefix() );
+
+        // FILTER DATA
+        $query_parameters = Input::get();
+ 
+        if(count($query_parameters) > 0){
+
+            $clientQuery = Client::query();
+            $filtered_collection =  collect([]);
+
+           foreach ($query_parameters as $filter_key => $filter_value) {
+                
+                 $clients->filter(function ($one_client, $client_key) use ($filter_key, $filter_value, &$filtered_collection){ 
+                    
+                    if(!is_null($one_client->{$filter_key}) 
+                        && strpos($one_client->{$filter_key}, $filter_value) !== false
+                        && !$filtered_collection->contains($one_client)){
+                        $filtered_collection->push($one_client);
+                        return $one_client; // not necessary anymore
+                    } 
+
+                }) ;
+                 
+
+           }
+        $clients = $filtered_collection;
+        }
+
         if (strpos(Route::getCurrentRoute()->getPrefix(), 'api') !== false) {
             return $this->responseFactory->json($clients);
         }
