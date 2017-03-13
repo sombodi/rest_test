@@ -42,7 +42,7 @@ class ClientController extends Controller
     {
         $clients = $this->client->all();
         // dd(Route::getCurrentRoute()->getPrefix() );
-        if (Route::getCurrentRoute()->getPrefix() == 'api/v1/') {
+        if (strpos(Route::getCurrentRoute()->getPrefix(), 'api') !== false) {
             return $this->responseFactory->json($clients);
         }
         return view('home', ['clients' => $clients]);
