@@ -16,8 +16,8 @@ class Client extends Migration
         Schema::create('clients', function (Blueprint $table) {
             $table->increments('id');
             $table->string('email')->unique();
-            $table->string('telephone');
-            $table->string('client_data'); 
+            $table->string('telephone', 500);
+            $table->string('client_data')->nullable(); 
         });
     }
 
