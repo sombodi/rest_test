@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Routing\ResponseFactory;
+use Illuminate\Support\Facades\Route;
 
 class ClientController extends Controller
 { 
@@ -40,7 +41,12 @@ class ClientController extends Controller
     public function index()
     {
         $clients = $this->client->all();
-        return $this->responseFactory->json($clients);
+        // dd(Route::getCurrentRoute()->getPrefix() );
+        if (Route::getCurrentRoute()->getPrefix() == 'api/v1/') {
+            return $this->responseFactory->json($clients);
+        }
+        return view('home', ['clients' => $clients]);
+
     }
 
     /**
@@ -59,7 +65,17 @@ class ClientController extends Controller
         if ($validator->fails()) {
             return $validator->messages();
         }else{ 
-            $client = $this->client->create($request->all());
+            $client_data = $request->all();
+            unset($client_data['email']);
+            unset($client_data['telephone']);
+            unset($client_data['_method']);
+
+            $payload = [];
+            $payload['email'] = $request->email;
+            $payload['telephone'] = $request->telephone;
+            $payload['client_data'] = $client_data;
+
+            $client = $this->client->create($payload);
             return $this->responseFactory->json($client);
         }
     }
@@ -93,7 +109,18 @@ class ClientController extends Controller
             return $validator->messages();
         }else{ 
             $client = $this->client->findOrFail($id);
-            $client->update($request->all());
+
+            $client_data = $request->all();
+            unset($client_data['email']);
+            unset($client_data['telephone']);
+            unset($client_data['_method']);
+
+            $payload = [];
+            $payload['email'] = $request->email;
+            $payload['telephone'] = $request->telephone;
+            $payload['client_data'] = $client_data;
+
+            $client->update($payload);
             return $this->responseFactory->json($client);
         }
     }
