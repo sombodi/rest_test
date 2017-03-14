@@ -48,11 +48,10 @@ class ClientController extends Controller
         $query_parameters = Input::get();
  
         if(count($query_parameters) > 0){
-
-            $clientQuery = Client::query();
+ 
             $filtered_collection =  collect([]);
 
-           foreach ($query_parameters as $filter_key => $filter_value) {
+            foreach ($query_parameters as $filter_key => $filter_value) {
                 
                  $clients->filter(function ($one_client, $client_key) use ($filter_key, $filter_value, &$filtered_collection){ 
                     
@@ -62,14 +61,13 @@ class ClientController extends Controller
                         $filtered_collection->push($one_client);
                         return $one_client; // not necessary anymore
                     } 
-
                 }) ;
-                 
 
            }
         $clients = $filtered_collection;
         }
 
+        // Check if request API of WEB
         if (strpos(Route::getCurrentRoute()->getPrefix(), 'api') !== false) {
             return $this->responseFactory->json($clients);
         }
