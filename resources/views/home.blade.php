@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-    <title>Bootstrap 101 Template</title>
+    <title>MYJAR REST API TEST</title>
 
     <!-- Bootstrap -->
     <link href="css/app.css" rel="stylesheet">
@@ -22,9 +22,18 @@
 
       @foreach ($clients as $client)
           <p>This is client {{ $client->id }} <br>
-          Email: {{ $client->email }}
-          Telephone: {{ $client->telephone }} 
+          Email: {{ $client->email }} <br>
+          Telephone: {{ $client->telephone }} <br>
+          @if(!is_null($client->client_data))
+          Client Data: 
+          <ul>
+            @foreach($client->client_data as $a_client_data_key => $a_client_data )
+              <li> {{$a_client_data_key}} - {{ $a_client_data }} </li>
+            @endforeach 
+          </ul>
+          @endif
           </p>
+          <hr>
       @endforeach
 
 
