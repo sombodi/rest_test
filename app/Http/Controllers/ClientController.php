@@ -92,9 +92,14 @@ class ClientController extends Controller
             return $validator->messages();
         }else{ 
             $client_data = $request->all();
+            unset($client_data['_method']);
+
+            if(count($client_data) != 10){
+                return 'Payload should have 10 fields';
+            }
+
             unset($client_data['email']);
             unset($client_data['telephone']);
-            unset($client_data['_method']);
 
             $payload = [];
             $payload['email'] = $request->email;
@@ -137,9 +142,14 @@ class ClientController extends Controller
             $client = $this->client->findOrFail($id);
 
             $client_data = $request->all();
+            unset($client_data['_method']);
+
+            if(count($client_data) != 10){
+                return 'Payload should have 10 fields';
+            }
+            
             unset($client_data['email']);
             unset($client_data['telephone']);
-            unset($client_data['_method']);
 
             $payload = [];
             $payload['email'] = $request->email;
