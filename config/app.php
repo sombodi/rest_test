@@ -168,6 +168,7 @@ return [
          */
         Laravel\Tinker\TinkerServiceProvider::class,
         Propaganistas\LaravelPhone\LaravelPhoneServiceProvider::class,
+        Mpociot\ApiDoc\ApiDocGeneratorServiceProvider::class,
 
         /*
          * Application Service Providers...
