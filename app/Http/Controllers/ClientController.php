@@ -54,13 +54,35 @@ class ClientController extends Controller
             foreach ($query_parameters as $filter_key => $filter_value) {
                 
                  $clients->filter(function ($one_client, $client_key) use ($filter_key, $filter_value, &$filtered_collection){ 
-                    
-                    if(!is_null($one_client->{$filter_key}) 
-                        && strpos($one_client->{$filter_key}, $filter_value) !== false
-                        && !$filtered_collection->contains($one_client)){
-                        $filtered_collection->push($one_client);
-                        return $one_client; // not necessary anymore
-                    } 
+   
+                    if($filter_key == 'email'){
+                        //search by email
+                        if(strpos($one_client->email, $filter_value) !== false){
+                            if(!$filtered_collection->contains($one_client)){
+                                 $filtered_collection->push($one_client);
+                            }
+                        }
+                    } elseif($filter_key == 'telephone'){
+                        // search uncrypted and unhidden telephone
+                        $decrypted_telephone = $one_client->fullTelephone;
+                        if(strpos($decrypted_telephone, $filter_value) !== false){
+                            if(!$filtered_collection->contains($one_client)){
+                                 $filtered_collection->push($one_client);
+                            }
+                        }
+                    } else {
+                        // search client_data
+                        
+                        if(array_key_exists($filter_key,$one_client->client_data)){
+                            if( strpos($one_client->client_data[$filter_key], $filter_value) !== false){
+                                if(!$filtered_collection->contains($one_client)){
+                                     $filtered_collection->push($one_client);
+                                }
+                            }
+                            
+                        }
+                    }
+ 
                 }) ;
 
            }

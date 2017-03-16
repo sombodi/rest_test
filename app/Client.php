@@ -33,6 +33,11 @@ class Client extends Model
         return $this->hideNumbers(\Crypt::decrypt($value)); 
     }
 
+    public function getFullTelephoneAttribute($value)
+    {
+        return \Crypt::decrypt($this->getOriginal('telephone')); 
+    }
+
     public function setTelephoneAttribute($value)
     {
         $this->attributes['telephone'] = \Crypt::encrypt($value);
