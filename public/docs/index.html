@@ -6,8 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <title>API Reference</title>
 
-    <link rel="stylesheet" href="css/style.css" />
-    <script src="js/all.js"></script>
+    <link rel="stylesheet" href="/docs/css/style.css" />
+    <script src="/docs/js/all.js"></script>
 
 
           <script>
@@ -21,11 +21,11 @@
     <a href="#" id="nav-button">
       <span>
         NAV
-        <img src="images/navbar.png" />
+        <img src="/docs/images/navbar.png" />
       </span>
     </a>
     <div class="tocify-wrapper">
-       <h1>MYJAR API DOCS</h1>
+        <img src="/docs/images/logo.png" />
                     <div class="lang-selector">
                                   <a href="#" data-language-name="bash">bash</a>
                                   <a href="#" data-language-name="javascript">javascript</a>
@@ -54,12 +54,12 @@
 <blockquote>
 <p>Example request:</p>
 </blockquote>
-<pre><code class="language-bash">curl -X GET "http://rest/api/v1/clients" \
+<pre><code class="language-bash">curl -X GET "http://localhost:8000/api/v1/clients" \
 -H "Accept: application/json"</code></pre>
 <pre><code class="language-javascript">var settings = {
     "async": true,
     "crossDomain": true,
-    "url": "http://rest/api/v1/clients",
+    "url": "http://localhost:8000/api/v1/clients",
     "method": "GET",
     "headers": {
         "accept": "application/json"
@@ -74,29 +74,18 @@ $.ajax(settings).done(function (response) {
 </blockquote>
 <pre><code class="language-json">[
     {
-        "id": 2,
-        "email": "ddasasd@sadasdasda.com",
-        "telephone": "*** **** 7687",
-        "client_data": null
-    },
-    {
-        "id": 3,
-        "email": "aaaa@sadasdasda.com",
-        "telephone": "*** **** 1111",
+        "id": 1,
+        "email": "aperson@email.com",
+        "telephone": "*** **** 8768",
         "client_data": {
-            "dsfds": "aa",
-            "sdfsdfsdf": "bb",
-            "fsdfsdf": "cc"
-        }
-    },
-    {
-        "id": 4,
-        "email": "xxxx@sadasdasda.com",
-        "telephone": "*** **** 2222",
-        "client_data": {
-            "dsfds": "aa",
-            "sdfsdfsdf": "bb",
-            "fsdfsdf": "cc"
+            "field1": "afield1",
+            "field2": "afield2",
+            "field3": "afield3",
+            "field4": "afield4",
+            "field5": "afield5",
+            "field6": "afield6",
+            "field7": "afield7",
+            "field8": "afield8"
         }
     }
 ]</code></pre>
@@ -109,16 +98,27 @@ $.ajax(settings).done(function (response) {
 <blockquote>
 <p>Example request:</p>
 </blockquote>
-<pre><code class="language-bash">curl -X POST "http://rest/api/v1/clients" \
+<pre><code class="language-bash">curl -X POST "http://localhost:8000/api/v1/clients" \
 -H "Accept: application/json"</code></pre>
 <pre><code class="language-javascript">var settings = {
     "async": true,
     "crossDomain": true,
-    "url": "http://rest/api/v1/clients",
+    "url": "http://localhost:8000/api/v1/clients",
     "method": "POST",
     "headers": {
         "accept": "application/json"
-    }
+    },
+    "data": 
+    "{'email':'aperson@email.com',
+    'telephone':'077 1234 8768',
+    'field1':'afield1',
+    'field2':'afield2',
+    'field3':'afield3',
+    'field4':'afield4',
+    'field5':'afield5',
+    'field6':'afield6',
+    'field7':'afield7',
+    'field8':'afield8'}"
 }
 
 $.ajax(settings).done(function (response) {
@@ -132,12 +132,12 @@ $.ajax(settings).done(function (response) {
 <blockquote>
 <p>Example request:</p>
 </blockquote>
-<pre><code class="language-bash">curl -X GET "http://rest/api/v1/clients/{client}" \
+<pre><code class="language-bash">curl -X GET "http://localhost:8000/api/v1/clients/{client}" \
 -H "Accept: application/json"</code></pre>
 <pre><code class="language-javascript">var settings = {
     "async": true,
     "crossDomain": true,
-    "url": "http://rest/api/v1/clients/{client}",
+    "url": "http://localhost:8000/api/v1/clients/{client}",
     "method": "GET",
     "headers": {
         "accept": "application/json"
@@ -150,7 +150,21 @@ $.ajax(settings).done(function (response) {
 <blockquote>
 <p>Example response:</p>
 </blockquote>
-<pre><code class="language-json">null</code></pre>
+<pre><code class="language-json">{
+    "id": 1,
+    "email": "aperson@email.com",
+    "telephone": "*** **** 8768",
+    "client_data": {
+        "field1": "afield1",
+        "field2": "afield2",
+        "field3": "afield3",
+        "field4": "afield4",
+        "field5": "afield5",
+        "field6": "afield6",
+        "field7": "afield7",
+        "field8": "afield8"
+    }
+}</code></pre>
 <h3>HTTP Request</h3>
 <p><code>GET api/v1/clients/{client}</code></p>
 <p><code>HEAD api/v1/clients/{client}</code></p>
@@ -160,16 +174,27 @@ $.ajax(settings).done(function (response) {
 <blockquote>
 <p>Example request:</p>
 </blockquote>
-<pre><code class="language-bash">curl -X PUT "http://rest/api/v1/clients/{client}" \
+<pre><code class="language-bash">curl -X PUT "http://localhost:8000/api/v1/clients/{client}" \
 -H "Accept: application/json"</code></pre>
 <pre><code class="language-javascript">var settings = {
     "async": true,
     "crossDomain": true,
-    "url": "http://rest/api/v1/clients/{client}",
+    "url": "http://localhost:8000/api/v1/clients/{client}",
     "method": "PUT",
     "headers": {
         "accept": "application/json"
-    }
+    },
+    "data": "{
+    'email':'aperson@email.com',
+    'telephone':'077 1234 8768',
+    'field1':'afield1',
+    'field2':'afield2',
+    'field3':'afield3',
+    'field4':'afield4',
+    'field5':'afield5',
+    'field6':'afield6',
+    'field7':'afield7',
+    'field8':'afield8'}"
 }
 
 $.ajax(settings).done(function (response) {
@@ -184,12 +209,12 @@ $.ajax(settings).done(function (response) {
 <blockquote>
 <p>Example request:</p>
 </blockquote>
-<pre><code class="language-bash">curl -X DELETE "http://rest/api/v1/clients/{client}" \
+<pre><code class="language-bash">curl -X DELETE "http://localhost:8000/api/v1/clients/{client}" \
 -H "Accept: application/json"</code></pre>
 <pre><code class="language-javascript">var settings = {
     "async": true,
     "crossDomain": true,
-    "url": "http://rest/api/v1/clients/{client}",
+    "url": "http://localhost:8000/api/v1/clients/{client}",
     "method": "DELETE",
     "headers": {
         "accept": "application/json"
