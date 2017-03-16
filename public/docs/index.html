@@ -99,7 +99,17 @@ $.ajax(settings).done(function (response) {
 <p>Example request:</p>
 </blockquote>
 <pre><code class="language-bash">curl -X POST "http://localhost:8000/api/v1/clients" \
--H "Accept: application/json"</code></pre>
+-H "Accept: application/json" 
+-d '{"email":"aperson@email.com",
+"telephone":"077 1234 8768",
+"field1":"afield1",
+"field2":"afield2",
+"field3":"afield3",
+"field4":"afield4",
+"field5":"afield5",
+"field6":"afield6",
+"field7":"afield7",
+"field8":"afield8"}'</code></pre>
 <pre><code class="language-javascript">var settings = {
     "async": true,
     "crossDomain": true,
@@ -175,7 +185,17 @@ $.ajax(settings).done(function (response) {
 <p>Example request:</p>
 </blockquote>
 <pre><code class="language-bash">curl -X PUT "http://localhost:8000/api/v1/clients/{client}" \
--H "Accept: application/json"</code></pre>
+-H "Accept: application/json"
+-d '{"email":"aperson@email.com",
+"telephone":"077 1234 8768",
+"field1":"afield1",
+"field2":"afield2",
+"field3":"afield3",
+"field4":"afield4",
+"field5":"afield5",
+"field6":"afield6",
+"field7":"afield7",
+"field8":"afield8"}'</code></pre>
 <pre><code class="language-javascript">var settings = {
     "async": true,
     "crossDomain": true,
